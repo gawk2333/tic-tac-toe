@@ -22,7 +22,7 @@ class TicTacNet(nn.Module):
         return x
 
 model = TicTacNet()
-
+model.load_state_dict(torch.load("target.pth"))
 
 app = Flask(__name__)
 
@@ -32,14 +32,16 @@ def predict():
     try:
         # Get the JSON data from the request
         data = request.get_json()
-        predictions = model.predict(data['input_data'])
+        # Convert the input data (list) to a PyTorch tensor
+        input_data = torch.tensor(data['board_status'], dtype=torch.float32)
+        print(input_data)
+        # Pass the tensor as input to the model
+        predictions = torch.argmax(model(input_data))
+        print(predictions.item())
         response = {
-            'predictions': predictions
+            'prediction': predictions.item()  # Convert the tensor to a list for JSON serialization
         }
         return jsonify(response)
     except Exception as e:
         error = str(e)
         return jsonify({'error': error}), 500
-
-if __name__ == '__main__':
-    app.run(debug=True)
