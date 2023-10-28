@@ -1,6 +1,6 @@
   import './App.css';
   import { useEffect,useState, useCallback } from 'react'
-  import request from 'superagent'
+  import superagent from 'superagent'
 
   let initialState = [0,0,0,0,0,0,0,0,0]
   function App() {
@@ -76,7 +76,7 @@
 
     const makeDecision = useCallback(async () => {
       if(start){
-      const result = await request.post('/predict')
+      const result = await superagent.post('/predict')
                                 .set("Access-Control-Allow-Origin", "*")
                                 .send({
                                   player: currentPlayer,
