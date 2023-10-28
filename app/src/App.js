@@ -1,6 +1,5 @@
   import './App.css';
   import { useEffect,useState, useCallback } from 'react'
-  import superagent from 'superagent'
 
   let initialState = [0,0,0,0,0,0,0,0,0]
   function App() {
@@ -76,15 +75,34 @@
 
     const makeDecision = useCallback(async () => {
       if(start){
-      const result = await superagent.post('/predict')
-                                .set("Access-Control-Allow-Origin", "*")
-                                .send({
-                                  player: currentPlayer,
-                                  board_status:board
-                                })
-                                .then(res=>res.body)
-      const action = result.action
-      handleSelected("",action)
+        console.log(currentPlayer)
+        const requestOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            player: currentPlayer,
+            board_status: board
+          })
+        };
+        
+        try {
+          const backendURL = process.env.BACKEND_URL || "http://127.0.0.1:5000";
+          const response = await fetch(`${backendURL}/predict`, requestOptions);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+        
+          const data = await response.json();
+          // Process data as needed
+          const result = data;
+          const action = result.action
+          handleSelected("",action)
+        } catch (error) {
+          console.error('There was a problem with the fetch operation:', error);
+        }
+        
     }},[board, currentPlayer, handleSelected, start])
 
     const gameStart = () => {
@@ -97,22 +115,14 @@
     useEffect(() => {
       if (playerX.type === 'human' || playerO.type === 'human') {
         if (currentPlayer.type === 'bot' && start) {
-          // Make the bot's decision
           makeDecision(currentPlayer.sign);
     
-          // After a 1-second delay, switch to the next player
           setTimeout(() => {
             setCurrentPlayer(nextPlayer(nextPlayer()));
           }, 1000);
         }
       } else if (playerX.type === 'bot' && playerO.type === 'bot' && start) {
-        // For the case where both players are bots
-        console.log("current", currentPlayer);
-    
-        // Make the bot's decision
         makeDecision(currentPlayer.sign);
-    
-        // After a 1-second delay, switch to the next player
         setTimeout(() => {
           setCurrentPlayer(nextPlayer(nextPlayer()));
         }, 1000);
