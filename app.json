@@ -1,0 +1,39 @@
+{
+  "name": "Tic-tac-toe",
+  "description": ".",
+  "keywords": [
+    "Heroku",
+    "Flask",
+    "React",
+    "frontend",
+    "server",
+    "deploy"
+  ],
+  "repository": "https://github.com/gawk2333",
+  "success_url": "/",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "env": {
+    "FLASK_APP": {
+      "description": "The FLASK_APP variable for pointing to the app",
+      "value": "server.app:app"
+    },
+    "WEB_CONCURRENCY": {
+      "description": "The number of processes to run.",
+      "value": "3"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
