@@ -1,7 +1,7 @@
 import torch
 from flask import Flask,request, jsonify
 from torch import nn
-import os
+from flask_cors import CORS
 
 
 class TicTacNet(nn.Module):
@@ -21,26 +21,39 @@ class TicTacNet(nn.Module):
         x = torch.sigmoid(x)
         return x
 
-model = TicTacNet()
-model.load_state_dict(torch.load("target.pth"))
+player1 = TicTacNet()
+player1.load_state_dict(torch.load("target.pth"))
+player2 = TicTacNet()
+player2.load_state_dict(torch.load("target.pth"))
 
-app = Flask(__name__)
-
+app = Flask(__name__,static_folder='./client/build/',static_url_path='/')
+CORS(app)
 
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get the JSON data from the request
         data = request.get_json()
-        # Convert the input data (list) to a PyTorch tensor
-        input_data = torch.tensor(data['board_status'], dtype=torch.float32)
-        print(input_data)
-        # Pass the tensor as input to the model
-        predictions = torch.argmax(model(input_data))
-        print(predictions.item())
+        board = data['board_status']
+        player = data['player']
+        if player.sign == -1:
+            board = [-x if x in (1, -1) else x for x in board]
+
+        board = torch.tensor(board,dtype=torch.float32)
+
+        if player == 'X':
+            predictions = torch.argmax(player1(board))
         response = {
-            'prediction': predictions.item()  # Convert the tensor to a list for JSON serialization
+            'player': 'X',
+            'action': predictions.item()  
         }
+        
+        if player == 'O':
+            predictions = torch.argmax(player2(board))
+        response = {
+            'player': 'O',
+            'action': predictions.item()
+        }
+
         return jsonify(response)
     except Exception as e:
         error = str(e)

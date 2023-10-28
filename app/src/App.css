@@ -2,37 +2,101 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #999;
+  height: 20vh;
 }
 
-.App-link {
-  color: #61dafb;
+.App-content {
+  background-color: rgb(230, 206, 206);
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Board {
+  width: 466px;
+  height: 470px;
+  display: flex;
+  flex-wrap: wrap;
 }
+
+.Cell {
+  width: 154px;
+  height: 154px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  font-size: 36px; 
+}
+
+.btop {
+  border-top: 2px solid black;
+}
+
+.bbot {
+  border-bottom: 2px solid black;
+}
+
+.blft {
+  border-left: 2px solid black;
+}
+
+.brig {
+  border-right: 2px solid black;
+}
+
+.shape-wrapper {
+  width: 154px;
+  height: 154px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.x-shape {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.line {
+  width: 4px;
+  height: 100%;
+  background-color: black;
+  position: absolute;
+}
+
+.line:first-child {
+  transform: rotate(45deg);
+  transform-origin: 50% 50%; /* Rotate around the center of the line */
+}
+
+.line:last-child {
+  transform: rotate(-45deg);
+  transform-origin: 50% 50%; /* Rotate around the center of the line */
+}
+
+
+.o-shape {
+  width: 100px;
+  height: 100px;
+  background-color: transparent;
+  border: 2px solid rgb(229, 17, 17);
+  border-radius: 50%;
+}
+
+/* .pannel {
+  height: 5vh;
+} */
