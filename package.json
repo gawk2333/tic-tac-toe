@@ -1,24 +1,29 @@
 {
   "name": "tic-tac-toe",
-  "version": "1.0.0",
-  "description": "A tictactoe AI uses DQN network",
-
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gunicorn server.app:app",
+    "build": "cd client && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gawk2333/tic-tac-toe.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "keywords": [
-    "react",
-    "flask",
-    "pytorch"
-  ],
-  "author": "gawk2333",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/gawk2333/tic-tac-toe/issues"
-  },
-  "homepage": "https://github.com/gawk2333/tic-tac-toe#readme"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

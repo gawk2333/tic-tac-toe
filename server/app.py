@@ -1,9 +1,11 @@
 import torch
 from flask import Flask,request, jsonify
 from torch import nn
-from flask_cors import CORS
+# from flask_cors import CORS
+from dotenv import load_dotenv
+import os
 
-
+load_dotenv()
 class TicTacNet(nn.Module):
     def __init__(self):
         super().__init__()
@@ -27,7 +29,7 @@ player2 = TicTacNet()
 player2.load_state_dict(torch.load("target.pth"))
 
 app = Flask(__name__,static_folder='./client/build/',static_url_path='/')
-CORS(app)
+# CORS(app)
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -58,3 +60,6 @@ def predict():
     except Exception as e:
         error = str(e)
         return jsonify({'error': error}), 500
+
+if __name__ == '__main__':
+    app.run(port=(os.getenv('PORT') if os.getenv('PORT') else 8000), debug=False)
