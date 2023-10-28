@@ -76,7 +76,7 @@
 
     const makeDecision = useCallback(async () => {
       if(start){
-      const result = await request.post('http://127.0.0.1:5000/predict')
+      const result = await request.post('/predict')
                                 .set("Access-Control-Allow-Origin", "*")
                                 .send({
                                   player: currentPlayer,
