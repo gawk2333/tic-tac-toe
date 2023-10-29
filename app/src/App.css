@@ -1,0 +1,102 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  background-color: #999;
+  height: 20vh;
+}
+
+.App-content {
+  background-color: rgb(230, 206, 206);
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.Board {
+  width: 466px;
+  height: 470px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Cell {
+  width: 154px;
+  height: 154px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  font-size: 36px; 
+}
+
+.btop {
+  border-top: 2px solid black;
+}
+
+.bbot {
+  border-bottom: 2px solid black;
+}
+
+.blft {
+  border-left: 2px solid black;
+}
+
+.brig {
+  border-right: 2px solid black;
+}
+
+.shape-wrapper {
+  width: 154px;
+  height: 154px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.x-shape {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.line {
+  width: 4px;
+  height: 100%;
+  background-color: black;
+  position: absolute;
+}
+
+.line:first-child {
+  transform: rotate(45deg);
+  transform-origin: 50% 50%; /* Rotate around the center of the line */
+}
+
+.line:last-child {
+  transform: rotate(-45deg);
+  transform-origin: 50% 50%; /* Rotate around the center of the line */
+}
+
+
+.o-shape {
+  width: 100px;
+  height: 100px;
+  background-color: transparent;
+  border: 2px solid rgb(229, 17, 17);
+  border-radius: 50%;
+}
+
+/* .pannel {
+  height: 5vh;
+} */
